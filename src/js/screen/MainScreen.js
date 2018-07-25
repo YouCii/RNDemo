@@ -1,84 +1,86 @@
+import {createBottomTabNavigator} from "react-navigation";
+import ListScreen from "./ListScreen";
 import React from "react";
-import {Component} from 'react';
-import {
-    Button,
-    Image,
-    Platform,
-    StyleSheet,
-    Text,
-    TextInput,
-    View
-} from 'react-native';
-import PublicComponent from "../component/PublicComponent";
-import PublicStyles from "../../res/style/styles";
+import Colors from "../../res/style/colors";
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import Feather from 'react-native-vector-icons/Feather';
 
-const instructions = Platform.select({
-    ios: 'IOS',
-    android: 'Android',
-});
+export default createBottomTabNavigator({
+        List: {
+            screen: ListScreen,
+            navigationOptions: {
+                tabBarLabel: 'forms',
+                tabBarIcon: ({tintColor}) => (
+                    <FontAwesome
+                        name={'wpforms'}
+                        size={30}
+                        color={tintColor}
+                    />
+                ),
+            }
+        },
+        List2: {
+            screen: ListScreen,
+            navigationOptions: {
+                tabBarLabel: 'face',
+                tabBarIcon: ({tintColor}) => (
+                    <MaterialCommunityIcons
+                        name={'face'}
+                        size={30}
+                        color={tintColor}
+                    />
+                ),
+            },
+        },
+        List3: {
+            screen: ListScreen,
+            navigationOptions: {
+                tabBarLabel: 'list',
+                tabBarIcon: ({tintColor}) => (
+                    <MaterialCommunityIcons
+                        name={'format-list-bulleted'}
+                        size={30}
+                        color={tintColor}
+                    />
+                ),
+            },
+        },
+        List4: {
+            screen: ListScreen,
+            navigationOptions: {
+                tabBarLabel: 'setting',
+                tabBarIcon: ({tintColor}) => (
+                    <Feather
+                        name={'settings'}
+                        size={30}
+                        color={tintColor}
+                    />
+                ),
+            }
+        },
+    }, {
+        initialRouteName: 'List', // 设置默认的页面组件
+        tabBarPosition: 'bottom', // 设置tabBar的位置，iOS默认在底部，安卓默认在顶部
+        lazy: true, // 在app打开的时候将底部标签栏全部加载，默认false, 推荐改成true
+        backBehavior: null, // 点击返回退到上级界面
 
+        tabBarOptions: {
+            activeTintColor: Colors.active, // 选中的颜色
+            inactiveTintColor: Colors.inactive, // 未选中的颜色
 
-export default class MainScreen extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {text: instructions};
-    }
-
-    static navigationOptions = {
-        header: null
-    };
-
-    render() {
-        let pic = {
-            uri: 'https://upload.wikimedia.org/wikipedia/commons/d/de/Bananavarieties.jpg'
-        };
-        return (
-            <View style={[PublicStyles.screenView, {
-                justifyContent: 'center',
-                alignItems: 'stretch',
-                backgroundColor: '#F5FCFF',
-            }]}>
-                {PublicComponent.initStatusBar()}
-                {PublicComponent.initTitleBar('Welcome')}
-                <Text style={styles.welcome}>{this.state.text}</Text>
-                <TextInput
-                    style={styles.textInput}
-                    underlineColorAndroid='transparent'
-                    placeholder="请输入查看随动效果"
-                    onChangeText={(text) => this.setState({text})}
-                />
-                <Button
-                    title="go to next page"
-                    onPress={() => {
-                        this.props.navigation.navigate("List", {
-                            title: 'from previous page',
-                            gestures: true
-                        })
-                    }}
-                />
-                <Image source={pic} style={styles.image}/>
-            </View>
-        );
-    }
-}
-
-const styles = StyleSheet.create({
-    textInput: {
-        flex: 1,
-        textAlign: 'center',
+            showLabel: true,
+            showIcon: true,
+            style: {
+                backgroundColor: Colors.tabBar,
+                height: 54,
+            },
+            tabStyle: {
+                height: 54,
+            },
+            labelStyle: {
+                fontSize: 12,
+            },
+        }
     },
-
-    welcome: {
-        fontSize: 20,
-        margin: 10,
-        textAlign: 'center',
-    },
-    instructions: {
-        flex: 1,
-        textAlign: 'center',
-        color: '#006633',
-    },
-    image: {
-        flex: 2,
-    }
-});
+);
