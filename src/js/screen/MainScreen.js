@@ -7,9 +7,9 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 
 export default createBottomTabNavigator({
-        List: {
+        Net: {
             screen: ListScreen,
-            navigationOptions: {
+            navigationOptions: ({navigation}) => ({
                 tabBarLabel: 'forms',
                 tabBarIcon: ({tintColor}) => (
                     <FontAwesome
@@ -18,11 +18,14 @@ export default createBottomTabNavigator({
                         color={tintColor}
                     />
                 ),
-            }
+                tabBarOnPress: () => {
+                    route(navigation)
+                }
+            }),
         },
         List2: {
             screen: ListScreen,
-            navigationOptions: {
+            navigationOptions: ({navigation}) => ({
                 tabBarLabel: 'face',
                 tabBarIcon: ({tintColor}) => (
                     <MaterialCommunityIcons
@@ -31,11 +34,14 @@ export default createBottomTabNavigator({
                         color={tintColor}
                     />
                 ),
-            },
+                tabBarOnPress: () => {
+                    route(navigation)
+                }
+            }),
         },
         List3: {
             screen: ListScreen,
-            navigationOptions: {
+            navigationOptions: ({navigation}) => ({
                 tabBarLabel: 'list',
                 tabBarIcon: ({tintColor}) => (
                     <MaterialCommunityIcons
@@ -44,7 +50,10 @@ export default createBottomTabNavigator({
                         color={tintColor}
                     />
                 ),
-            },
+                tabBarOnPress: () => {
+                    route(navigation)
+                }
+            }),
         },
         List4: {
             screen: ListScreen,
@@ -60,8 +69,9 @@ export default createBottomTabNavigator({
             }
         },
     }, {
-        initialRouteName: 'List', // 设置默认的页面组件
-        tabBarPosition: 'bottom', // 设置tabBar的位置，iOS默认在底部，安卓默认在顶部
+        initialRouteName: 'Net', // 设置默认的页面组件
+        initialRouteParams: {title: 'Net'}, // 找这条命令不容易, 翻github翻了一个小时
+
         lazy: true, // 在app打开的时候将底部标签栏全部加载，默认false, 推荐改成true
         backBehavior: null, // 点击返回退到上级界面
 
@@ -84,3 +94,14 @@ export default createBottomTabNavigator({
         }
     },
 );
+
+/**
+ * Tab点击跳转调用的公共方法
+ */
+const route = (navigation) => {
+    if (!navigation.isFocused()) {
+        navigation.navigate(navigation.state.routeName, {
+            title: navigation.state.routeName
+        })
+    }
+};
