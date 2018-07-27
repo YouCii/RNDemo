@@ -5,10 +5,11 @@ import Colors from "../../res/style/colors";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
+import NetScreen from "./NetScreen";
 
 export default createBottomTabNavigator({
         Net: {
-            screen: ListScreen,
+            screen: NetScreen,
             navigationOptions: ({navigation}) => ({
                 tabBarLabel: 'forms',
                 tabBarIcon: ({tintColor}) => (
@@ -23,7 +24,7 @@ export default createBottomTabNavigator({
                 }
             }),
         },
-        List2: {
+        List1: {
             screen: ListScreen,
             navigationOptions: ({navigation}) => ({
                 tabBarLabel: 'face',
@@ -39,7 +40,7 @@ export default createBottomTabNavigator({
                 }
             }),
         },
-        List3: {
+        List2: {
             screen: ListScreen,
             navigationOptions: ({navigation}) => ({
                 tabBarLabel: 'list',
@@ -55,7 +56,7 @@ export default createBottomTabNavigator({
                 }
             }),
         },
-        List4: {
+        List3: {
             screen: ListScreen,
             navigationOptions: {
                 tabBarLabel: 'setting',

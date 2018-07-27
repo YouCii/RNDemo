@@ -40,7 +40,7 @@ export default class LoginScreen extends BaseScreen {
                 <Text style={styles.welcome}>{this.state.text}</Text>
                 <TextInput
                     style={styles.textInput}
-                    underlineColorAndroid='transparent'
+                    underlineColorAndroid={Colors.transparent}
                     placeholder="请输入查看随动效果"
                     onChangeText={(text) => this.setState({text})}
                 />
