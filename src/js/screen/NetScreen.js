@@ -1,11 +1,12 @@
 import BaseScreen from "../base/BaseScreen";
 import React from "react";
-import {Button, TextInput, View, StyleSheet, FlatList, Text, Image} from "react-native";
+import {Button, TextInput, View, StyleSheet, FlatList, Image, Dimensions} from "react-native";
 import PublicStyles from "../../res/style/styles";
 import PublicComponent from "../component/PublicComponent";
 import Colors from "../../res/style/colors";
 import TopMovieResponse from "../model/TopMovieResponse"
 import AlertUtils from "../utils/AlertUtils";
+import Constants from "../utils/Constants";
 
 /**
  * 实现网络请求
@@ -19,8 +20,9 @@ export default class NetScreen extends BaseScreen {
     constructor(props) {
         super(props);
         this.state = {
-            toSelectNum: '10',
-            topMovieResponse: TopMovieResponse
+            toSelectNum: '10', // 查询的数目
+            topMovieResponse: TopMovieResponse, // 查询回调
+            imageRadio: 1, // 图片显示高宽比例
         }
     }
 
@@ -61,10 +63,14 @@ export default class NetScreen extends BaseScreen {
             <FlatList
                 data={this.state.topMovieResponse.subjects}
                 keyExtractor={item => item.id}
+                numColumns={3} // 一句话实现GridView
                 renderItem={({item}) =>
                     <View style={styles.item}>
                         <Image
-                            style={styles.itemImage}
+                            style={[styles.itemImage, {
+                                width: Constants.width / 3,
+                                height: Constants.width / 3 * this.state.imageRadio
+                            }]}
                             source={{uri: item.images.large}}
                         />
                     </View>
@@ -82,9 +88,12 @@ export default class NetScreen extends BaseScreen {
                     return response.json()
                 })
                 .then(responseJson => {
-                    this.setState({
-                        topMovieResponse: responseJson
-                    });
+                    Image.getSize(responseJson.subjects[0].images.large, (width, height) => {
+                        this.setState({
+                            imageRadio: height / width,
+                            topMovieResponse: responseJson,
+                        });
+                    })
                 })
                 .catch(error => {
                     AlertUtils.showSimpleAlert('请求失败: ' + error);
@@ -100,15 +109,11 @@ const styles = StyleSheet.create({
         margin: 10,
     },
     item: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         borderBottomWidth: 0, // StyleSheet.hairlineWidth
         borderBottomColor: Colors.gray,
     },
     itemImage: {
-        height: 180,
-        width: 120,
         resizeMode: Image.resizeMode.stretch
     },
 });
