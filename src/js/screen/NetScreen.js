@@ -1,12 +1,22 @@
 import BaseScreen from "../base/BaseScreen";
 import React from "react";
-import {Button, TextInput, View, StyleSheet, FlatList, Image, Dimensions} from "react-native";
+import {
+    Button,
+    TextInput,
+    View,
+    StyleSheet,
+    FlatList,
+    Image,
+    TouchableNativeFeedback
+} from "react-native";
 import PublicStyles from "../../res/style/styles";
 import PublicComponent from "../component/PublicComponent";
 import Colors from "../../res/style/colors";
 import TopMovieResponse from "../model/TopMovieResponse"
 import AlertUtils from "../utils/AlertUtils";
 import Constants from "../utils/Constants";
+import ToastUtils from "../utils/ToastUtils";
+import HttpUtils from "../utils/HttpUtils";
 
 /**
  * 实现网络请求
@@ -21,7 +31,7 @@ export default class NetScreen extends BaseScreen {
         super(props);
         this.state = {
             toSelectNum: '10', // 查询的数目
-            topMovieResponse: TopMovieResponse, // 查询回调
+            topMovieResponse: new TopMovieResponse(), // 查询回调
             imageRadio: 1, // 图片显示高宽比例
         }
     }
@@ -37,6 +47,7 @@ export default class NetScreen extends BaseScreen {
             {PublicComponent.initTitleBar('网络请求')}
 
             <TextInput
+                ref={'tiCount'} // 类似于android的id
                 underlineColorAndroid={Colors.transparent}
                 defaultValue={'10'}
                 placeholder={'请输入查询数目'}
@@ -56,6 +67,7 @@ export default class NetScreen extends BaseScreen {
             <Button
                 title={'查询'}
                 onPress={() => {
+                    this.refs.tiCount.blur();
                     this.startNetWork(this.state.toSelectNum)
                 }}
             />
@@ -66,13 +78,15 @@ export default class NetScreen extends BaseScreen {
                 numColumns={3} // 一句话实现GridView
                 renderItem={({item}) =>
                     <View style={styles.item}>
-                        <Image
-                            style={[styles.itemImage, {
-                                width: Constants.width / 3,
-                                height: Constants.width / 3 * this.state.imageRadio
-                            }]}
-                            source={{uri: item.images.large}}
-                        />
+                        <TouchableNativeFeedback
+                            onPress={() => ToastUtils.showShortToast(item.title)}>
+                            <Image
+                                style={[styles.itemImage, {
+                                    width: Constants.width / 3,
+                                    height: Constants.width / 3 * this.state.imageRadio
+                                }]}
+                                source={{uri: item.images.large}}/>
+                        </TouchableNativeFeedback>
                     </View>
                 }
             />
@@ -83,10 +97,10 @@ export default class NetScreen extends BaseScreen {
         if (isNaN(toSelectNum)) {
             AlertUtils.showSimpleAlert('只能输入数字');
         } else {
-            fetch("https://api.douban.com/v2/movie/top250?start=0&count=" + toSelectNum, {method: "GET"})
-                .then(response => {
-                    return response.json()
-                })
+            let params = new Map();
+            params.set('start', 0);
+            params.set('count', toSelectNum);
+            HttpUtils.startGetRequest("https://api.douban.com/v2/movie/top250", params)
                 .then(responseJson => {
                     Image.getSize(responseJson.subjects[0].images.large, (width, height) => {
                         this.setState({
@@ -96,9 +110,8 @@ export default class NetScreen extends BaseScreen {
                     })
                 })
                 .catch(error => {
-                    AlertUtils.showSimpleAlert('请求失败: ' + error);
-                })
-                .done();
+                    AlertUtils.showSimpleAlert('请求失败' + error);
+                });
         }
     };
 }
