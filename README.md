@@ -7,4 +7,5 @@
 - 图标库: react-native-vector-icons;
 - 界面跳转: createStackNavigator, 以及跳转传值;
 - 底部Tab导航栏: createBottomTabNavigator, 以及Tab跳转传值/默认Tab传值;
-- fetch网络请求刷新列表;
+- fetch网络请求刷新列表, 封装工具类;
+- Base64Utils, JsonUtils, ToastUtils;
