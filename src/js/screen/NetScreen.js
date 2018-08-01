@@ -110,7 +110,10 @@ export default class NetScreen extends BaseScreen {
                     })
                 })
                 .catch(error => {
-                    AlertUtils.showSimpleAlert('请求失败' + error);
+                    AlertUtils.showSimpleAlert(error.toString());
+                })
+                .finally(() => {
+                    // 无论成功与否都执行的回调, 例如加载完成后隐藏loading
                 });
         }
     };

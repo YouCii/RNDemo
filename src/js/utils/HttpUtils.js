@@ -1,6 +1,10 @@
 import JsonUtils from "./JsonUtils";
 import EncodeUtils from "./EncodeUtils";
 
+/**
+ * 返回Promise对象的网络请求工具类
+ * 封装了请求超时/部分错误提示等
+ */
 export default class HttpUtils {
 
     /**
@@ -17,10 +21,12 @@ export default class HttpUtils {
             });
             url = url.substr(0, url.length - 1)
         }
-        return fetch(url, {
+        return Promise.race([fetch(url, {
             method: "Get",
             credentials: "include"
-        })
+        }), new Promise(((resolve, reject) => {
+            setTimeout(() => reject(new Error('请求超时')), timeOut)
+        }))])
             .then((response: Response) => checkStatus(response))
             .then((response: Response) => {
                 return response.text()
@@ -43,11 +49,14 @@ export default class HttpUtils {
                 formData.append(key, value);
             })
         }
-        return fetch(url, {
+
+        return Promise.race([fetch(url, {
             method: "POST",
             credentials: "include",
             body: formData,
-        })
+        }), new Promise((resolve, reject) => {
+            setTimeout(() => reject(new Error('请求超时')), timeOut)
+        })])
             .then((response: Response) => checkStatus(response))
             .then((response: Response) => {
                 return response.text()
@@ -64,13 +73,16 @@ export default class HttpUtils {
 }
 
 /**
+ * 请求超时时间
+ */
+const timeOut = 5 * 1000;
+
+/**
  * 解决fetch不提示某些错误的问题
  */
 function checkStatus(response) {
     if (response.ok || (response.status >= 200 && response.status < 300)) {
         return response;
     }
-    const error = new Error(response.statusText);
-    error.message = response;
-    throw error;
+    throw new Error(response.statusText); // 或者 reject(new Error('test'));
 }
