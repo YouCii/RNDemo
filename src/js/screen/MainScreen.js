@@ -6,6 +6,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import NetScreen from "./NetScreen";
+import PhotoScreen from "./PhotoScreen";
 
 export default createBottomTabNavigator({
         Net: {
@@ -24,8 +25,8 @@ export default createBottomTabNavigator({
                 }
             }),
         },
-        List1: {
-            screen: ListScreen,
+        Photo: {
+            screen: PhotoScreen,
             navigationOptions: ({navigation}) => ({
                 tabBarLabel: 'face',
                 tabBarIcon: ({tintColor}) => (
@@ -40,7 +41,7 @@ export default createBottomTabNavigator({
                 }
             }),
         },
-        List2: {
+        List1: {
             screen: ListScreen,
             navigationOptions: ({navigation}) => ({
                 tabBarLabel: 'list',
@@ -56,7 +57,7 @@ export default createBottomTabNavigator({
                 }
             }),
         },
-        List3: {
+        List2: {
             screen: ListScreen,
             navigationOptions: {
                 tabBarLabel: 'setting',
