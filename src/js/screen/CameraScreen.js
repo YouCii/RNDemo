@@ -10,6 +10,7 @@ import {
 } from 'react-native'
 import {RNCamera} from 'react-native-camera'
 import AlertUtils from "../utils/AlertUtils";
+import Sound from 'react-native-sound';
 import ToastUtils from "../utils/ToastUtils";
 
 export default class CameraScreen extends BaseScreen {
@@ -45,12 +46,32 @@ export default class CameraScreen extends BaseScreen {
                         ref='camera'
                         style={{flex: 1}}
                         type={RNCamera.Constants.Type.back}
-                        flashMode={RNCamera.Constants.FlashMode.on}
+                        flashMode={RNCamera.Constants.FlashMode.auto}
                         permissionDialogTitle={'Permission to use camera'}
                         permissionDialogMessage={'We need your permission to use your camera phone'}
                         onBarCodeRead={(data) => {
-                            ToastUtils.showShortToast('识别文字: ' + data.toString());
-                            Vibration.vibrate();
+                            if (pageType === PAGE_TYPE.CODE) {
+                                const sound = new Sound('ding.wav', Sound.MAIN_BUNDLE, (error) => {
+                                    if (error !== null) {
+                                        return;
+                                    }
+
+                                    // 震动/提示音
+                                    sound.play(() =>
+                                        sound.release()
+                                    );
+                                    Vibration.vibrate();
+
+                                    if(data.type !== RNCamera.Constants.BarCodeType.qr){
+                                        ToastUtils.showShortToast("只支持二维码");
+                                        return;
+                                    }
+
+                                    // 页面回传 扫描字符
+                                    this.props.navigation.state.params.callback(data.data);
+                                    this.props.navigation.goBack();
+                                });
+                            }
                         }}
                     />
                 }
@@ -60,25 +81,12 @@ export default class CameraScreen extends BaseScreen {
                 <Button
                     title={'点击拍照'}
                     onPress={() => {
-                        const options = {quality: 0.5, base64: true, fixOrientation: true};
+                        const options = {quality: 0.5, base64: false, fixOrientation: true};
                         this.refs.camera.takePictureAsync(options)
                             .then((data: TakePictureResponse) => {
-                                AlertUtils.showSimpleAlert("保存位置:" + data.uri)
-                            })
-                            .catch((error: Error) => {
-                                AlertUtils.showSimpleAlert(error.toString())
-                            })
-                    }}
-                />
-            }
-            {pageType !== PAGE_TYPE.CODE ? null :
-                <Button
-                    title={'扫描条码'}
-                    onPress={() => {
-                        const options = {quality: 0.5, base64: true, fixOrientation: true};
-                        this.refs.camera.takePictureAsync(options)
-                            .then((data: TakePictureResponse) => {
-                                AlertUtils.showSimpleAlert("保存位置:" + data.uri)
+                                // 页面回传 扫描字符
+                                this.props.navigation.state.params.callback(data.uri);
+                                this.props.navigation.goBack();
                             })
                             .catch((error: Error) => {
                                 AlertUtils.showSimpleAlert(error.toString())

@@ -55,7 +55,7 @@ export default class HttpUtils {
             credentials: "include",
             body: formData,
         }), new Promise((resolve, reject) => {
-            setTimeout(() => reject(new Error('请求超时')), timeOut)
+            setTimeout(() => reject(new Error('请求超时')), timeOut) // 注意. 如果是调试模式, 这里会立即执行, 没有延迟效果(除非设置超大)
         })])
             .then((response: Response) => checkStatus(response))
             .then((response: Response) => {

@@ -27,7 +27,8 @@ export default class LoginScreen extends BaseScreen {
 
     render() {
         let pic = {
-            uri: 'https://upload.wikimedia.org/wikipedia/commons/d/de/Bananavarieties.jpg'
+            uri: 'https://upload.wikimedia.org/wikipedia/commons/d/de/Bananavarieties.jpg',
+            cache: 'force-cache'
         };
         return (
             <View style={[PublicStyles.screenView, {

@@ -5,7 +5,8 @@
 
 - 透明状态栏;
 - 图标库: react-native-vector-icons;
-- 界面跳转: createStackNavigator, 以及跳转传值;
-- 底部Tab导航栏: createBottomTabNavigator, 以及Tab跳转传值/默认Tab传值;
-- fetch网络请求刷新列表, 封装工具类;
+- createStackNavigator/createBottomTabNavigator, 以及跳转传值;
+- fetch网络请求封装工具类;
 - Base64Utils, JsonUtils, ToastUtils;
+- react-native-sound 播放音频;
+- react-native-camera 拍照/二维码扫描;
