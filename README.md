@@ -10,3 +10,5 @@
 - Base64Utils, JsonUtils, ToastUtils;
 - react-native-sound 播放音频;
 - react-native-camera 拍照/二维码扫描;
+- 指纹识别;
+- 二维码扫描位移动画/背景渐变动画;

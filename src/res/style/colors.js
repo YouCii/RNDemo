@@ -4,12 +4,15 @@ const Colors = {
     white: '#FFFFFF',
     darkGray: '#8F8F8F',
     lightGray: '#EEEEEE',
+    blueGray: '#ACCAE8',
+
     red: '#CC3333',
     orange: '#F4511E',
     pink: '#E92064',
     green: '#33CC33',
     blue: '#0066CC',
-    brightBlue: '#2196F3',
+    lightBlue: '#2196F3',
+    darkBlue: '#5099E3',
     cyan: '#37ABF9',
 
     /* 下方是具体组件使用的颜色 */

@@ -9,6 +9,7 @@ import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.github.yamill.orientation.OrientationPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
+import com.rnfingerprint.FingerprintAuthPackage;
 import com.zmxv.RNSound.RNSoundPackage;
 
 import org.reactnative.camera.RNCameraPackage;
@@ -28,6 +29,7 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
+                    new FingerprintAuthPackage(),
                     new RNSoundPackage(),
                     new OrientationPackage(),
                     new RNCameraPackage(),
