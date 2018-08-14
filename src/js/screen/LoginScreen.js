@@ -53,9 +53,9 @@ export default class LoginScreen extends BaseScreen {
     }
 
     _startAnimatedToBlue() {
-        this.state.anim.setValue(1);
+        this.state.anim.setValue(TRANSPARENT_DARK);
         Animated.timing(this.state.anim, {
-            toValue: 0.6,
+            toValue: TRANSPARENT_LIGHT,
             duration: 1000,
             easing: Easing.linear,
             useNativeDriver: true,
@@ -63,9 +63,9 @@ export default class LoginScreen extends BaseScreen {
     }
 
     _startAnimatedToGray() {
-        this.state.anim.setValue(0.6);
+        this.state.anim.setValue(TRANSPARENT_LIGHT);
         Animated.timing(this.state.anim, {
-            toValue: 1,
+            toValue: TRANSPARENT_DARK,
             duration: 1000,
             easing: Easing.linear,
             useNativeDriver: true,
@@ -77,7 +77,7 @@ export default class LoginScreen extends BaseScreen {
     }
 
     render() {
-        return <View style={PublicStyles.screenView}>
+        return <View style={[PublicStyles.screenView, {backgroundColor: Colors.white}]}>
             {PublicComponent.initStatusBar(false)}
             {PublicComponent.initTitleBar("登录")}
 
@@ -157,7 +157,7 @@ export default class LoginScreen extends BaseScreen {
                 <Animated.View style={[styles.loginButton, {
                     opacity: this.state.anim.interpolate({
                         inputRange: [0, 1],
-                        outputRange: [1, 0.6]
+                        outputRange: [TRANSPARENT_DARK, TRANSPARENT_LIGHT]
                     })
                 }]}>
                     <Text style={styles.loginText}>登录</Text>
@@ -218,10 +218,12 @@ export default class LoginScreen extends BaseScreen {
     }
 }
 
+const TRANSPARENT_LIGHT = 0.4, TRANSPARENT_DARK = 0.9;
+
 const styles = StyleSheet.create({
     inputView: {
         flexDirection: 'row',
-        borderColor: Colors.darkGray,
+        borderColor: Colors.mediumGray,
         borderWidth: 1,
         borderRadius: 5,
         margin: 7,
@@ -254,7 +256,8 @@ const styles = StyleSheet.create({
     },
 
     lockText: {
-        margin: 7,
+        marginLeft: 7,
+        marginTop: 10,
         color: Colors.darkBlue
     },
 });

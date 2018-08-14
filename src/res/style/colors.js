@@ -1,10 +1,13 @@
 const Colors = {
     /* 基本颜色 */
     transparent: '#00000000',
+    black: '#000000',
     white: '#FFFFFF',
     darkGray: '#8F8F8F',
+    mediumGray: '#CCC',
     lightGray: '#EEEEEE',
     blueGray: '#ACCAE8',
+    lightBlueGray: '#EFF1F0',
 
     red: '#CC3333',
     orange: '#F4511E',

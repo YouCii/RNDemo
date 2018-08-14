@@ -7,6 +7,7 @@ import MainScreen from './src/js/screen/MainScreen';
 import CardStackStyleInterpolator
     from "react-navigation/src/views/StackView/StackViewStyleInterpolator";
 import CameraScreen from "./src/js/screen/CameraScreen";
+import SettingScreen from "./src/js/screen/SettingScreen";
 
 YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated', 'Module RCTImageLoader']);
 
@@ -15,6 +16,12 @@ export default createStackNavigator(
         Login: LoginScreen,
         Main: MainScreen,
         Camera: CameraScreen,
+        Setting: {
+            screen: SettingScreen,
+            navigationOptions: {
+                gesturesEnabled: true,
+            }
+        },
     },
     {
         initialRouteName: 'Login',
