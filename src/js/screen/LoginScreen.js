@@ -170,7 +170,7 @@ export default class LoginScreen extends BaseScreen {
                         };
                         TouchID.authenticate(null, optionalConfigObject)
                             .then(() => {
-                                ToastUtils.showShortToast("登陆成功")
+                                this.props.navigation.navigate('Main');
                             })
                             .catch(error => {
                                 switch (error.toString()) {

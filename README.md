@@ -12,3 +12,5 @@
 - react-native-camera 拍照/二维码扫描;
 - 指纹识别;
 - 二维码扫描位移动画/背景渐变动画;
+- 封装公共组件类(prop-types限制属性);
+- CardView控件;

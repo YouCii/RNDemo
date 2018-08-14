@@ -138,6 +138,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-cardview')
     compile project(':react-native-orientation')
     compile project(':react-native-camera')
     compile project(':react-native-vector-icons')

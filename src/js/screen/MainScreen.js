@@ -7,6 +7,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import NetScreen from "./NetScreen";
 import PhotoScreen from "./PhotoScreen";
+import MyScreen from "./MyScreen";
 
 export default createBottomTabNavigator({
         Net: {
@@ -57,8 +58,8 @@ export default createBottomTabNavigator({
                 }
             }),
         },
-        List2: {
-            screen: ListScreen,
+        My: {
+            screen: MyScreen,
             navigationOptions: {
                 tabBarLabel: 'setting',
                 tabBarIcon: ({tintColor}) => (
