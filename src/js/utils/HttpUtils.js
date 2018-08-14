@@ -32,6 +32,10 @@ export default class HttpUtils {
                 return response.text()
             })
             .then((responseText: String) => {
+                // 根据回调是否被Base64加密进行判断
+                if (responseText.indexOf("{") === -1 && responseText.match(/^[0-9a-zA-Z+\/]+[=]{0,3}$/)) {
+                    responseText = EncodeUtils.decodeBase64Content(responseText);
+                }
                 return JsonUtils.stringToJson(responseText);
             })
     }
@@ -63,7 +67,7 @@ export default class HttpUtils {
             })
             .then((responseText: String) => {
                 // 根据回调是否被Base64加密进行判断
-                if (responseText.indexOf("\"data\"") === -1 && responseText.indexOf("\"message\"") === -1 && responseText.indexOf("\"msg\"") === -1) {
+                if (responseText.indexOf("{") === -1 && responseText.match(/^[0-9a-zA-Z+\/]+[=]{0,3}$/)) {
                     responseText = EncodeUtils.decodeBase64Content(responseText);
                 }
                 return JsonUtils.stringToJson(responseText);
