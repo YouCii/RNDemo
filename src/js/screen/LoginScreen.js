@@ -16,6 +16,7 @@ import Colors from "../../res/style/colors";
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import ToastUtils from "../utils/ToastUtils";
 import TouchID from 'react-native-touch-id'
+import Constants from "../utils/Constants";
 
 export default class LoginScreen extends BaseScreen {
 
@@ -71,6 +72,10 @@ export default class LoginScreen extends BaseScreen {
         }).start();
     }
 
+    _loginSuccess() {
+        this.props.navigation.navigate("Main")
+    }
+
     render() {
         return <View style={PublicStyles.screenView}>
             {PublicComponent.initStatusBar(false)}
@@ -101,7 +106,7 @@ export default class LoginScreen extends BaseScreen {
                     }
                     }
                     onBlur={() => {
-                        if (this.state.userFocus && this.props.user === "") {
+                        if (this.state.userFocus && this.state.user === "") {
                             this.setState({userFocus: false})
                         }
                     }
@@ -144,7 +149,7 @@ export default class LoginScreen extends BaseScreen {
                     this.refs.tiUser.blur();
                     this.refs.tiPass.blur();
                     if (this.state.user === this.state.password) {
-                        this.props.navigation.navigate('Main');
+                        this._loginSuccess();
                     } else {
                         ToastUtils.showShortToast("登陆失败")
                     }
@@ -164,13 +169,13 @@ export default class LoginScreen extends BaseScreen {
                     this.refs.tiPass.blur();
                     if (TouchID.isSupported()) {
                         const optionalConfigObject = {
-                            title: "请按指纹", // Android
+                            title: "\"" + Constants.appName + "\" 的触控ID", // Android
                             color: Colors.blue, // Android,
                             fallbackLabel: "" // iOS (if empty, then label is hidden)
                         };
-                        TouchID.authenticate(null, optionalConfigObject)
+                        TouchID.authenticate('通过验证手机指纹进行登录', optionalConfigObject)
                             .then(() => {
-                                this.props.navigation.navigate('Main');
+                                this._loginSuccess();
                             })
                             .catch(error => {
                                 switch (error.toString()) {
@@ -198,7 +203,7 @@ export default class LoginScreen extends BaseScreen {
                                         break;
                                     case "RCTTouchIDUnknownError":
                                     default:
-                                        ToastUtils.showShortToast("指纹识别失败");
+                                        ToastUtils.showShortToast("未能识别");
                                         break;
                                 }
                             });
@@ -206,7 +211,7 @@ export default class LoginScreen extends BaseScreen {
                         ToastUtils.showShortToast("设备不支持指纹功能")
                     }
                 }}>
-                <Text style={styles.lockText}>指纹解锁</Text>
+                <Text style={styles.lockText}>指纹登录</Text>
             </TouchableOpacity>
 
         </View>
