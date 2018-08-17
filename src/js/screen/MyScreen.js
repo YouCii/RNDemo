@@ -16,7 +16,7 @@ export default class MyScreen extends BaseScreen {
             <UserInfoCard
                 name={"特朗普"}
                 post={"后勤"}
-                department={"中国新闻网"}
+                department={"阿里巴巴"}
             />
 
             <SettingItem
@@ -37,3 +37,11 @@ export default class MyScreen extends BaseScreen {
     }
 
 }
+
+/**
+ * 继承自BaseScreen, 用于控制是否允许Android-Back按键的返回功能
+ * @link BaseScreen.defaultProps
+ */
+MyScreen.defaultProps = {
+    disableBack: true
+};

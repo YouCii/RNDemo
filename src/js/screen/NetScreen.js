@@ -119,6 +119,14 @@ export default class NetScreen extends BaseScreen {
     };
 }
 
+/**
+ * 继承自BaseScreen, 用于控制是否允许Android-Back按键的返回功能
+ * @link BaseScreen.defaultProps
+ */
+NetScreen.defaultProps = {
+    disableBack: true
+};
+
 const styles = StyleSheet.create({
     textInput: {
         textAlign: 'center',

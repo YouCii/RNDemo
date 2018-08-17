@@ -8,31 +8,62 @@ import {
     TextInput,
     StyleSheet,
     Animated,
-    Easing
+    Easing,
+    DeviceEventEmitter,
 } from 'react-native'
 import PublicComponent from "../component/PublicComponent";
 import PublicStyles from "../../res/style/styles";
 import Colors from "../../res/style/colors";
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import ToastUtils from "../utils/ToastUtils";
-import TouchID from 'react-native-touch-id'
-import Constants from "../utils/Constants";
+import TouchFaceUtils from "../utils/TouchFaceUtils";
+import StorageUtils from "../utils/StorageUtils";
+import UserInfo from "../model/UserInfo";
+import EmitterEvents from "../utils/EmitterEvents";
 
 export default class LoginScreen extends BaseScreen {
 
     constructor(props) {
         super(props);
         this.state = {
-            user: "111",
+            user: "",
             password: "",
+            savedUser: "", // 用于暂存上次登录的用户名, 是否使能指纹登录
 
             userFocus: false,
             passFocus: false,
             inputComplete: false, // 用于判断用户名/密码是否都输入了
 
             anim: new Animated.Value(1)
-        }
+        };
     }
+
+    componentDidMount() {
+        super.componentDidMount();
+        this.subscription = DeviceEventEmitter.addListener(EmitterEvents.BACK_TO_LOGIN, this._initDateFromStorage);
+        this._initDateFromStorage();
+    }
+
+    componentWillUnmount() {
+        super.componentWillUnmount();
+        this.subscription.remove();
+    }
+
+    _initDateFromStorage = () => {
+        StorageUtils.getLoginUserInfo()
+            .then((userInfo) => {
+                this.setState({
+                    user: userInfo.userName,
+                    password: userInfo.password,
+                    savedUser: userInfo.userName,
+
+                    inputComplete: true,
+                });
+                this._startAnimatedToBlue()
+            })
+            .catch((error) => {
+            })
+    };
 
     /**
      * 处理登陆按钮的背景色渐变动画
@@ -72,8 +103,30 @@ export default class LoginScreen extends BaseScreen {
         }).start();
     }
 
-    _loginSuccess() {
+    _loginSuccess = () => {
+        StorageUtils.setLoginUserInfo(new UserInfo(this.state.user, this.state.password));
+        if (this.state.user !== this.state.savedUser) {
+            StorageUtils.setTouchConfig(false).catch()
+        }
         this.props.navigation.navigate("Main")
+    };
+
+    _onTouchFacePress() {
+        this.refs.tiUser.blur();
+        this.refs.tiPass.blur();
+
+        StorageUtils.getTouchConfig()
+            .then((result) => {
+                if (result === "true") { // 传入的 callback 参数如果是 func(){} 样式的话, 必须要 bind(this)
+                    // 如果是 () => {} 样式的话, 就不需要.
+                    TouchFaceUtils.authenticate(this._loginSuccess)
+                } else {
+                    ToastUtils.showShortToast("请先在设置中开启此功能")
+                }
+            })
+            .catch((error) => {
+                ToastUtils.showShortToast("数据读取错误, 请稍后重试:" + error)
+            })
     }
 
     render() {
@@ -146,12 +199,14 @@ export default class LoginScreen extends BaseScreen {
             </View>
             <TouchableNativeFeedback
                 onPress={() => {
-                    this.refs.tiUser.blur();
-                    this.refs.tiPass.blur();
-                    if (this.state.user === this.state.password) {
-                        this._loginSuccess();
-                    } else {
-                        ToastUtils.showShortToast("登陆失败")
+                    if (this.state.inputComplete) {
+                        this.refs.tiUser.blur();
+                        this.refs.tiPass.blur();
+                        if (this.state.user === this.state.password) {
+                            this._loginSuccess();
+                        } else {
+                            ToastUtils.showShortToast("登录失败")
+                        }
                     }
                 }}>
                 <Animated.View style={[styles.loginButton, {
@@ -165,53 +220,13 @@ export default class LoginScreen extends BaseScreen {
             </TouchableNativeFeedback>
             <TouchableOpacity
                 onPress={() => {
-                    this.refs.tiUser.blur();
-                    this.refs.tiPass.blur();
-                    if (TouchID.isSupported()) {
-                        const optionalConfigObject = {
-                            title: "\"" + Constants.appName + "\" 的触控ID", // Android
-                            color: Colors.blue, // Android,
-                            fallbackLabel: "" // iOS (if empty, then label is hidden)
-                        };
-                        TouchID.authenticate('通过验证手机指纹进行登录', optionalConfigObject)
-                            .then(() => {
-                                this._loginSuccess();
-                            })
-                            .catch(error => {
-                                switch (error.toString()) {
-                                    case "LAErrorAuthenticationFailed":
-                                        ToastUtils.showShortToast("指纹不匹配");
-                                        break;
-                                    case "LAErrorUserFallback":
-                                        ToastUtils.showShortToast("tapped the fallback button (Enter Password)");
-                                        break;
-                                    case "LAErrorPasscodeNotSet":
-                                        ToastUtils.showShortToast("指纹不可用, 因为您还没有设置密码");
-                                        break;
-                                    case "LAErrorTouchIDNotAvailable":
-                                        ToastUtils.showShortToast("指纹不可用");
-                                        break;
-                                    case "LAErrorTouchIDNotEnrolled":
-                                        ToastUtils.showShortToast("没有识别到指纹");
-                                        break;
-                                    case "RCTTouchIDNotSupported":
-                                        ToastUtils.showShortToast("设备不支持指纹功能");
-                                        break;
-                                    case "LAErrorUserCancel":
-                                    case "LAErrorSystemCancel":
-                                        ToastUtils.showShortToast("已取消");
-                                        break;
-                                    case "RCTTouchIDUnknownError":
-                                    default:
-                                        ToastUtils.showShortToast("未能识别");
-                                        break;
-                                }
-                            });
+                    if (this.state.user !== "" && this.state.user === this.state.savedUser) {
+                        this._onTouchFacePress()
                     } else {
-                        ToastUtils.showShortToast("设备不支持指纹功能")
+                        ToastUtils.showShortToast("此帐号暂未开启指纹登录")
                     }
                 }}>
-                <Text style={styles.lockText}>指纹登录</Text>
+                <Text style={styles.lockText}>指纹/面容登录</Text>
             </TouchableOpacity>
 
         </View>
@@ -219,6 +234,14 @@ export default class LoginScreen extends BaseScreen {
 }
 
 const TRANSPARENT_LIGHT = 0.4, TRANSPARENT_DARK = 0.9;
+
+/**
+ * 继承自BaseScreen, 用于控制是否允许Android-Back按键的返回功能
+ * @link BaseScreen.defaultProps
+ */
+LoginScreen.defaultProps = {
+    disableBack: true
+};
 
 const styles = StyleSheet.create({
     inputView: {

@@ -63,6 +63,14 @@ export default class PhotoScreen extends BaseScreen {
     }
 }
 
+/**
+ * 继承自BaseScreen, 用于控制是否允许Android-Back按键的返回功能
+ * @link BaseScreen.defaultProps
+ */
+PhotoScreen.defaultProps = {
+    disableBack: true
+};
+
 const styles = StyleSheet.create({
     ButtonContainer: {
         flexDirection: 'row',

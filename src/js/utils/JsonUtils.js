@@ -2,28 +2,28 @@ export default class JsonUtils {
     /**
      * 字符串转json
      */
-    static stringToJson(data) {
-        return JSON.parse(data);
+    static stringToJson(jsonStr: String) {
+        return JSON.parse(jsonStr);
     }
 
     /**
      * json转字符串
      */
-    static jsonToString(data) {
+    static jsonToString(data): String {
         return JSON.stringify(data);
     }
 
     /**
      * map转换为json
      */
-    static mapToJson(map) {
+    static mapToJson(map): String {
         return JSON.stringify(strMapToObj(map));
     }
 
     /**
      * json转换为map
      */
-    static jsonToMap(jsonStr) {
+    static jsonToMap(jsonStr: String) {
         return objToStrMap(JSON.parse(jsonStr));
     }
 }

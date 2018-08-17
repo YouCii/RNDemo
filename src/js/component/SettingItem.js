@@ -4,6 +4,8 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import PropTypes from 'prop-types'
 import Colors from "../../res/style/colors";
 import NormalDivider from "./NormalDivider";
+import Switch from 'react-native-switch-pro'
+import PublicStyles from "../../res/style/styles";
 
 /**
  * 应用常用的设置项, 如果两项之间没有空隙时, 可以隐藏第一个Item的下divider
@@ -18,14 +20,7 @@ export default class SettingItem extends Component {
             }, this.props.style]}>
                 <NormalDivider/>
                 <View
-                    style={{
-                        height: 48,
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        backgroundColor: Colors.white,
-                        paddingLeft: 16,
-                        paddingRight: 5,
-                    }}>
+                    style={PublicStyles.settingItemStyle}>
 
                     {!this.props.iconName ? null :
                         <MaterialCommunityIcons
@@ -42,11 +37,19 @@ export default class SettingItem extends Component {
                         color: Colors.black,
                     }}> {this.props.text}</Text>
 
-                    <MaterialCommunityIcons
-                        name={'chevron-right'}
-                        size={30}
-                        color={Colors.mediumGray}
-                    />
+                    {this.props.onCheckChange ?
+                        <Switch
+                            value={this.props.isChecked}
+                            onSyncPress={(isChecked) => this.props.onCheckChange(isChecked)}
+                            backgroundActive={Colors.active}
+                        />
+                        :
+                        <MaterialCommunityIcons
+                            name={'chevron-right'}
+                            size={30}
+                            color={Colors.mediumGray}
+                        />
+                    }
                 </View>
                 {!this.props.showBottomDivider ? null : <NormalDivider/>}
             </View>
@@ -63,4 +66,8 @@ SettingItem.propTypes = {
     iconName: PropTypes.string, // MaterialCommunityIcons.name
     onPress: PropTypes.func,
     showBottomDivider: PropTypes.bool, // 是否显示下面的divider
+
+    /* 不显示右箭头, 换为CheckBox */
+    onCheckChange: PropTypes.func,
+    isChecked: PropTypes.bool,
 };
