@@ -1,12 +1,14 @@
 import React from "react";
+import {
+    FlatList, StyleSheet, TouchableWithoutFeedback,
+    Text, View,
+} from 'react-native';
 import BaseScreen from "../base/BaseScreen";
 import PublicComponent from "../component/PublicComponent";
 import PublicStyles from "../../res/style/styles";
 import Colors from "../../res/style/colors";
-import {
-    FlatList, StyleSheet,
-    Text, View,
-} from 'react-native';
+import InputDialog from "../component/InputDialog";
+import ToastUtils from '../utils/ToastUtils'
 
 export default class ListScreen extends BaseScreen {
 
@@ -18,7 +20,7 @@ export default class ListScreen extends BaseScreen {
                 {PublicComponent.initTitleBar('ListView')}
                 <FlatList
                     data={[
-                        {key: title},
+                        {key: 'modal实现的输入对话框'},
                         {key: title},
                         {key: title},
                         {key: title},
@@ -26,10 +28,29 @@ export default class ListScreen extends BaseScreen {
                         {key: title},
                     ]}
                     renderItem={({item}) =>
-                        <View style={styles.item}>
-                            <Text>{item.key}</Text>
-                        </View>
+                        <TouchableWithoutFeedback
+                            onPress={() => {
+                                if (item.key !== title) {
+                                    this.refs.dialog.showDialog(true);
+                                }
+                            }}
+                        >
+                            <View style={styles.item}>
+                                <Text>{item.key}</Text>
+                            </View>
+                        </TouchableWithoutFeedback>
                     }
+                />
+                <InputDialog
+                    ref={'dialog'}
+                    title={'请输入'}
+                    onConfirm={(inputText) => {
+                        if (!inputText) {
+                            ToastUtils.showShortToast("不能输入空值")
+                        } else {
+                            this.refs.dialog.showDialog(false);
+                        }
+                    }}
                 />
             </View>
         );

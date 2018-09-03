@@ -17,3 +17,5 @@
 - BaseScreen封装android返回键监听, 一条属性切换返回键功能;
 - DeviceEventEmitter实现界面返回监听;
 - AsyncStorage持久化存储实现指纹登录/登录设置的逻辑控制;
+- modal实现的自定义对话框;
+- RootSiblings实现的不依赖界面的自定义加载对话框('SpinKit'库);

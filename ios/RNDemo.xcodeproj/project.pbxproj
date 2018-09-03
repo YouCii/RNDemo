@@ -54,6 +54,7 @@
 		3FA11A0E93A544B993A885A9 /* libRNSound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 97245F07CE2C4206994DD4F0 /* libRNSound.a */; };
 		493B05773D8B4A75A4FC40B5 /* libTouchID.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 687651D2ADBD4907BDE78CA5 /* libTouchID.a */; };
 		DCEDE8B73ADA4578AD2B62AD /* libRNCardView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FBCAA8247EB441E82A8FA73 /* libRNCardView.a */; };
+		280A4A033C414825984CA5DD /* libRNSpinkit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 005FE87E6CF842A38483B5EB /* libRNSpinkit.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -382,6 +383,8 @@
 		687651D2ADBD4907BDE78CA5 /* libTouchID.a */ = {isa = PBXFileReference; name = "libTouchID.a"; path = "libTouchID.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		CD6F88AC55DB420199BC692B /* RNCardView.xcodeproj */ = {isa = PBXFileReference; name = "RNCardView.xcodeproj"; path = "../node_modules/react-native-cardview/ios/RNCardView.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		3FBCAA8247EB441E82A8FA73 /* libRNCardView.a */ = {isa = PBXFileReference; name = "libRNCardView.a"; path = "libRNCardView.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		8086C576970F4ED38FC62C55 /* RNSpinkit.xcodeproj */ = {isa = PBXFileReference; name = "RNSpinkit.xcodeproj"; path = "../node_modules/react-native-spinkit/ios/RNSpinkit.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		005FE87E6CF842A38483B5EB /* libRNSpinkit.a */ = {isa = PBXFileReference; name = "libRNSpinkit.a"; path = "libRNSpinkit.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -416,6 +419,7 @@
 				3FA11A0E93A544B993A885A9 /* libRNSound.a in Frameworks */,
 				493B05773D8B4A75A4FC40B5 /* libTouchID.a in Frameworks */,
 				DCEDE8B73ADA4578AD2B62AD /* libRNCardView.a in Frameworks */,
+				280A4A033C414825984CA5DD /* libRNSpinkit.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -608,6 +612,7 @@
 				F618F35694874DE79E1EE6D6 /* RNSound.xcodeproj */,
 				4BD9CDBB2C0844A6B11C82AA /* TouchID.xcodeproj */,
 				CD6F88AC55DB420199BC692B /* RNCardView.xcodeproj */,
+				8086C576970F4ED38FC62C55 /* RNSpinkit.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1271,6 +1276,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1280,6 +1286,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-sound\RNSound",
 					"$(SRCROOT)\..\node_modules\react-native-touch-id",
 					"$(SRCROOT)\..\node_modules\react-native-cardview\ios",
+					"$(SRCROOT)\..\node_modules\react-native-spinkit\ios/**",
 				);
 			};
 			name = Debug;
@@ -1306,6 +1313,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1315,6 +1323,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-sound\RNSound",
 					"$(SRCROOT)\..\node_modules\react-native-touch-id",
 					"$(SRCROOT)\..\node_modules\react-native-cardview\ios",
+					"$(SRCROOT)\..\node_modules\react-native-spinkit\ios/**",
 				);
 			};
 			name = Release;
@@ -1342,6 +1351,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-sound\RNSound",
 					"$(SRCROOT)\..\node_modules\react-native-touch-id",
 					"$(SRCROOT)\..\node_modules\react-native-cardview\ios",
+					"$(SRCROOT)\..\node_modules\react-native-spinkit\ios/**",
 				);
 			};
 			name = Debug;
@@ -1368,6 +1378,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-sound\RNSound",
 					"$(SRCROOT)\..\node_modules\react-native-touch-id",
 					"$(SRCROOT)\..\node_modules\react-native-cardview\ios",
+					"$(SRCROOT)\..\node_modules\react-native-spinkit\ios/**",
 				);
 			};
 			name = Release;
@@ -1403,6 +1414,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1412,6 +1424,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-sound\RNSound",
 					"$(SRCROOT)\..\node_modules\react-native-touch-id",
 					"$(SRCROOT)\..\node_modules\react-native-cardview\ios",
+					"$(SRCROOT)\..\node_modules\react-native-spinkit\ios/**",
 				);
 			};
 			name = Debug;
@@ -1447,6 +1460,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1456,6 +1470,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-sound\RNSound",
 					"$(SRCROOT)\..\node_modules\react-native-touch-id",
 					"$(SRCROOT)\..\node_modules\react-native-cardview\ios",
+					"$(SRCROOT)\..\node_modules\react-native-spinkit\ios/**",
 				);
 			};
 			name = Release;
@@ -1490,6 +1505,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1499,6 +1515,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-sound\RNSound",
 					"$(SRCROOT)\..\node_modules\react-native-touch-id",
 					"$(SRCROOT)\..\node_modules\react-native-cardview\ios",
+					"$(SRCROOT)\..\node_modules\react-native-spinkit\ios/**",
 				);
 			};
 			name = Debug;
@@ -1533,6 +1550,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1542,6 +1560,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-sound\RNSound",
 					"$(SRCROOT)\..\node_modules\react-native-touch-id",
 					"$(SRCROOT)\..\node_modules\react-native-cardview\ios",
+					"$(SRCROOT)\..\node_modules\react-native-spinkit\ios/**",
 				);
 			};
 			name = Release;

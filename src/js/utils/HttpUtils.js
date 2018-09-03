@@ -1,5 +1,6 @@
 import JsonUtils from "./JsonUtils";
 import EncodeUtils from "./EncodeUtils";
+import ProgressDialog from "../component/ProgressDialog"
 
 /**
  * 返回Promise对象的网络请求工具类
@@ -14,6 +15,8 @@ export default class HttpUtils {
      * @return promise对象
      */
     static startGetRequest(url: String, params: Map) {
+        // 展示加载动画
+        ProgressDialog.show();
         if (params != null && params.size !== 0) {
             url += "?";
             params.forEach((value, key) => {
@@ -29,6 +32,8 @@ export default class HttpUtils {
         }))])
             .then((response: Response) => checkStatus(response))
             .then((response: Response) => {
+                // 获取到了数据, 后面本地处理速度就比较快了
+                ProgressDialog.hide();
                 return response.text()
             })
             .then((responseText: String) => {
@@ -47,6 +52,8 @@ export default class HttpUtils {
      * @return promise对象
      */
     static startPostRequest = (url: String, params: Map) => {
+        // 展示加载动画
+        ProgressDialog.show();
         let formData = new FormData();
         if (params != null && params.size !== 0) {
             params.forEach((value, key) => {
@@ -54,6 +61,7 @@ export default class HttpUtils {
             })
         }
 
+        // 这里默认的POST字段传输是form表单形式, 另外一种application/json
         return Promise.race([fetch(url, {
             method: "POST",
             credentials: "include",
@@ -63,6 +71,8 @@ export default class HttpUtils {
         })])
             .then((response: Response) => checkStatus(response))
             .then((response: Response) => {
+                // 获取到了数据, 后面本地处理速度就比较快了
+                ProgressDialog.hide();
                 return response.text()
             })
             .then((responseText: String) => {
