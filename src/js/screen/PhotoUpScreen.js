@@ -83,7 +83,7 @@ export default class PhotoUpScreen extends BaseScreen {
 
     _refreshDateList = (result: String[]) => {
         if ((result.length + this.state.paths.length) <= (this.state.upLimit + 1)) {
-            if (this.state.paths[this.state.path.length - 1] === ADD_PHOTO) {
+            if (this.state.paths[this.state.paths.length - 1] === ADD_PHOTO) {
                 this.state.paths.pop()
             }
             result.forEach((value) => {

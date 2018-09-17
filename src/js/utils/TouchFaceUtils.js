@@ -23,7 +23,7 @@ export default class TouchFaceUtils {
             .then(() =>
                 callBack()  // 不能简写为then(callBack()). 否则不会等待Touch验证, 而是直接调用callBack
             )
-            .catch((error: Error) => {
+            .catch((error) => {
                 switch (error.message) {
                     case "LAErrorAuthenticationFailed":
                         ToastUtils.showShortToast(type + "不匹配");
@@ -49,7 +49,7 @@ export default class TouchFaceUtils {
                         break;
                     case "RCTTouchIDUnknownError":
                     case "Touch ID Error":
-                        ToastUtils.showShortToast("未能识别" + type);
+                        ToastUtils.showShortToast(error.details);
                         break;
                     default:
                         ToastUtils.showShortToast(error.message);
