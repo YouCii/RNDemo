@@ -19,3 +19,7 @@
 - AsyncStorage持久化存储实现指纹登录/登录设置的逻辑控制;
 - modal实现的自定义对话框;
 - RootSiblings实现的不依赖界面的自定义加载对话框('SpinKit'库);
+- 更易用的CheckBox;
+- TabView相关的多层子界面数据传递;
+- 拍照图库选择的画廊展示效果;
+- 底部ActionSheet;

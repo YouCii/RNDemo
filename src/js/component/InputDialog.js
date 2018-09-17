@@ -52,7 +52,7 @@ export default class InputDialog extends Component {
                                     style={{flex: 1}}
                                     underlineColorAndroid={Colors.transparent}
                                     multiline={true}
-                                    placeholder={'例: SER-DELL-000'}
+                                    placeholder={'请输入'}
                                     defaultValue={this.state.inputValue}
                                     onChangeText={(text) => {
                                         this.state.inputValue = text;

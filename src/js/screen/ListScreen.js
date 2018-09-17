@@ -21,17 +21,24 @@ export default class ListScreen extends BaseScreen {
                 <FlatList
                     data={[
                         {key: 'modal实现的输入对话框'},
-                        {key: title},
+                        {key: 'TabView + Gallery'},
                         {key: title},
                         {key: title},
                         {key: title},
                         {key: title},
                     ]}
-                    renderItem={({item}) =>
+                    renderItem={({item, index}) =>
                         <TouchableWithoutFeedback
                             onPress={() => {
-                                if (item.key !== title) {
-                                    this.refs.dialog.showDialog(true);
+                                switch (index) {
+                                    case 0:
+                                        this.refs.dialog.showDialog(true);
+                                        break;
+                                    case 1:
+                                        this.props.navigation.navigate('Tab');
+                                        break;
+                                    default:
+                                        break;
                                 }
                             }}
                         >

@@ -73,7 +73,7 @@ export default class CameraScreen extends BaseScreen {
                 }}/>
                 <ImageBackground
                     style={styles.rectangle}
-                    source={require('../../res/img/qc_scan.png')}>
+                    source={require('../../res/imgs/qc_scan.png')}>
                     <Animated.View style={[styles.animateStyle, {
                         transform: [{
                             translateY: this.state.anim.interpolate({

@@ -8,6 +8,9 @@ import SettingScreen from "./src/js/screen/SettingScreen";
 import SettingLoginScreen from "./src/js/screen/SettingLoginScreen";
 
 import {YellowBox} from 'react-native';
+import TabViewScreen from "./src/js/screen/TabViewScreen";
+import PhotoUpScreen from "./src/js/screen/PhotoUpScreen";
+import GalleryScreen from "./src/js/screen/GalleryScreen";
 
 YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated', 'Module RCTImageLoader']);
 
@@ -28,6 +31,14 @@ export default createStackNavigator(
         Camera: CameraScreen,
         Setting: SettingScreen,
         SettingLogin: SettingLoginScreen,
+        Tab: {
+            screen: TabViewScreen,
+            navigationOptions: {
+                gesturesEnabled: false,
+            }
+        },
+        PhotoUp: PhotoUpScreen,
+        Gallery: GalleryScreen,
     },
     {
         initialRouteName: 'Login',
