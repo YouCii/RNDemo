@@ -175,7 +175,7 @@ export default class LoginScreen extends BaseScreen {
                 <TextInput
                     ref={'tiPass'}
                     style={styles.fieldTextInput}
-                    placeholder={'密码'}
+                    placeholder={'密码(与帐号一样就可以)'}
                     defaultValue={this.state.password}
                     underlineColorAndroid={Colors.transparent}
                     autoFocus={false}
