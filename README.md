@@ -1,4 +1,7 @@
 # RNDemo
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/44e125f4ecaa48d8b7ba765b2de7f07d)](https://app.codacy.com/app/550341130/RNDemo?utm_source=github.com&utm_medium=referral&utm_content=YouCii/RNDemo&utm_campaign=Badge_Grade_Dashboard)
+
 记录ReactNative的学习过程, 仅在android环境测试, 不保证ios运行正常.
 
 目前应用内用到的东西:
