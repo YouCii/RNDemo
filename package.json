@@ -10,7 +10,7 @@
     "buffer": "^5.2.0",
     "prop-types": "^15.6.2",
     "react": "16.4.1",
-    "react-native": "^0.55.4",
+    "react-native": "^0.70.2",
     "react-native-actionsheet": "^2.4.2",
     "react-native-camera": "^1.1.4",
     "react-native-cardview": "^1.1.5",
