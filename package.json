@@ -10,7 +10,7 @@
     "buffer": "^5.2.0",
     "prop-types": "^15.6.2",
     "react": "16.4.1",
-    "react-native": "^0.55.4",
+    "react-native": "^0.70.6",
     "react-native-actionsheet": "^2.4.2",
     "react-native-camera": "^1.1.4",
     "react-native-cardview": "^1.1.5",
@@ -31,7 +31,7 @@
   "devDependencies": {
     "babel-jest": "23.4.0",
     "babel-preset-react-native": "^2.1.0",
-    "jest": "23.4.0",
+    "jest": "29.3.1",
     "react-test-renderer": "16.4.1"
   },
   "jest": {
